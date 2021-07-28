@@ -2,6 +2,15 @@ package com.zeze.api;
 
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
+import feign.optionals.OptionalDecoder;
+import io.opentracing.Span;
+import io.opentracing.Tracer;
+import io.opentracing.tag.Tags;
+import io.opentracing.util.GlobalTracer;
+import org.springframework.beans.factory.ObjectFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
+import org.springframework.cloud.openfeign.support.ResponseEntityDecoder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -12,9 +21,12 @@ import java.util.Optional;
 
 
 /**
- *
+ * 1
  */
 public class FeignRequestInterceptor implements RequestInterceptor {
+
+    @Autowired
+    private ObjectFactory<HttpMessageConverters> messageConverters;
 
     @Override
     public void apply(RequestTemplate requestTemplate) {
@@ -27,12 +39,21 @@ public class FeignRequestInterceptor implements RequestInterceptor {
                     String name = headers.nextElement();
                     String value = request.getHeader(name);
                     requestTemplate.header(name, value);
-                    System.err.println(name + ":" +  value);
                 }
             });
         }
+        requestTemplate.header("test","apitest");
+        Tracer tracer = GlobalTracer.get();
+        //new TextMapAdapter()
+        Span start = tracer.buildSpan(String.format("%s %s", requestTemplate.method(), requestTemplate.url())).start();
+        tracer.activateSpan(start);
+        Tags.COMPONENT.set(start,"java-openfeign");
     }
 
+    @Bean
+    public OptionalDecoder feignDecoder() {
+        return new OptionalDecoder(new ResponseEntityDecoder(new TraceDecoder(this.messageConverters)));
+    }
 }
 
 

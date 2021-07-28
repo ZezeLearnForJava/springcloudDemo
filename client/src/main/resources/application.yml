@@ -7,4 +7,9 @@ eureka:
 spring:
   application:
     name: demo-rpc-client
-
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          strategy: SEMAPHORE
