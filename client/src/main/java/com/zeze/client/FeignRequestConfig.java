@@ -5,6 +5,7 @@ import feign.RequestInterceptor;
 
 import feign.RequestTemplate;
 import feign.optionals.OptionalDecoder;
+import org.apache.tomcat.jni.Time;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
@@ -41,6 +42,9 @@ public class FeignRequestConfig implements RequestInterceptor {
                 template.header(name, values);
             }
         }
+
+
+        System.out.println("Client FeignRequest:" );
         //template.header("test","test");
         Enumeration<String> bodyNames = request.getParameterNames();
         StringBuffer body = new StringBuffer();

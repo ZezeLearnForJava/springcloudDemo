@@ -2,6 +2,7 @@ package com.zeze.client;
 
 import feign.FeignException;
 import feign.Response;
+import org.apache.tomcat.jni.Time;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.cloud.openfeign.support.SpringDecoder;
@@ -22,6 +23,8 @@ class TraceDecoder extends SpringDecoder {
 
     @Override
     public Object decode(Response response, Type type) throws IOException, FeignException {
+
+        System.out.println("api decode:");
 
         // 这里可以从response对象里面获取响应头和响应体
 
