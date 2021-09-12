@@ -1,6 +1,6 @@
 package com.zeze.springmvcgetallurl.controller;
 
-import com.zeze.springgetallurl.anno.Tracer;
+import com.zeze.springmvcgetallurl.anno.Tracer;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
