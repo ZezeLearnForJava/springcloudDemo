@@ -1,5 +1,8 @@
 package com.zeze.client;
 
+import io.jaegertracing.internal.JaegerTracer;
+import io.opentracing.Tracer;
+import io.opentracing.util.GlobalTracer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -12,6 +15,8 @@ public class TracerConfig {
         //sender.withEndpoint("");
         config.withSampler(new io.jaegertracing.Configuration.SamplerConfiguration().withType("const").withParam(1));
         config.withReporter(new io.jaegertracing.Configuration.ReporterConfiguration().withSender(sender).withMaxQueueSize(10000));
-        return config.getTracer();
+        Tracer tracer = config.getTracer();
+        GlobalTracer.registerIfAbsent(tracer);
+        return tracer;
     }
 }
