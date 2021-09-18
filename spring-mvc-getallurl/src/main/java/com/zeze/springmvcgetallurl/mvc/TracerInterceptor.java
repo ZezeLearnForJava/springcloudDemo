@@ -21,12 +21,17 @@ public class TracerInterceptor implements HandlerInterceptor {
     TracerUrlMapping tracerUrlMapping;
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        Map<String, String> urlMapping = tracerUrlMapping.getUrlMapping();
+
 
 
         // eg: GET /api/test01
         String key = request.getMethod() + " " + request.getServletPath();
-        String chineseChar = urlMapping.get(key);
+
+
+        String chineseChar = tracerUrlMapping.getChineseMapping(key);
+
+        // path value去查找
+
         System.out.println();
 
         return HandlerInterceptor.super.preHandle(request, response, handler);

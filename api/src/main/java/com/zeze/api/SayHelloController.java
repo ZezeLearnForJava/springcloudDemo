@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class SayHelloController implements Sayhello{
 
-    @Autowired
-
     @GetMapping("/sayHello")
     @Override
     public String sayHello() {

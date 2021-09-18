@@ -1,9 +1,7 @@
 package com.zeze.springmvcgetallurl.controller;
 
 import com.zeze.springmvcgetallurl.anno.Tracer;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @org.springframework.web.bind.annotation.RestController
 @RequestMapping("/api")
@@ -21,5 +19,11 @@ public class RestController {
     @Tracer(OperationName = "增加角色")
     public String getAllUrlTest() {
         return "123";
+    }
+
+    @GetMapping("/{index}/test")
+    @Tracer(OperationName = "路径参数")
+    public String pathTest(@PathVariable("index") String index) {
+        return "index";
     }
 }
