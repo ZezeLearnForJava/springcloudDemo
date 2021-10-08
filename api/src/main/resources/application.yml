@@ -9,4 +9,9 @@ eureka:
 spring:
   application:
     name: api
-
+# 配置开启Actuator服务
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

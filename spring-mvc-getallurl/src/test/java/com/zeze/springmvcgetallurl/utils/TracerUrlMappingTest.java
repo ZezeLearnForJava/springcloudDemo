@@ -2,6 +2,7 @@ package com.zeze.springmvcgetallurl.utils;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -46,4 +47,17 @@ class TracerUrlMappingTest {
         TracerUrlMapping tracerUrlMapping = new TracerUrlMapping();
         assertNull(tracerUrlMapping.getUrlPathValueMapping());
     }
+
+    @Test
+    void testException() {
+
+        try (){
+
+        } catch (Exception e) {
+
+        } finally {
+
+        }
+    }
+
 }
