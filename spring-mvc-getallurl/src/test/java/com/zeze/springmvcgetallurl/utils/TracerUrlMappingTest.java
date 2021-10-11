@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.regex.Pattern;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 class TracerUrlMappingTest {
 
     @Test
@@ -37,7 +38,7 @@ class TracerUrlMappingTest {
 
     @Test
     void regexTest() {
-        String pattern = "/api/.\\w*" ;
+        String pattern = "/api/.\\w*";
         assertEquals(true, Pattern.matches(pattern, "/api/123"));
 
     }
@@ -48,16 +49,5 @@ class TracerUrlMappingTest {
         assertNull(tracerUrlMapping.getUrlPathValueMapping());
     }
 
-    @Test
-    void testException() {
-
-        try (){
-
-        } catch (Exception e) {
-
-        } finally {
-
-        }
-    }
 
 }

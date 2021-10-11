@@ -1,8 +1,10 @@
 package com.zeze.springmvcgetallurl.mvc;
 
+import com.zeze.springmvcgetallurl.anno.Tracer;
 import com.zeze.springmvcgetallurl.utils.TracerUrlMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,14 +21,14 @@ public class TracerInterceptor implements HandlerInterceptor {
 
     @Autowired
     TracerUrlMapping tracerUrlMapping;
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
 
-
         // eg: GET /api/test01
         String key = request.getMethod() + " " + request.getServletPath();
-
+        //final String s = ((HandlerMethod) handler).getMethod().getAnnotation(Tracer.class).OperationName();
 
         String chineseChar = tracerUrlMapping.getChineseMapping(key);
 

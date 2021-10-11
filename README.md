@@ -1,5 +1,7 @@
-## Spring Cloud Demo 
+## Spring Cloud Demo
 
 ### Eureka
+
 ### OpenFegin
+
 ### Jaeger

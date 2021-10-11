@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class SayHelloController implements Sayhello{
+public class SayHelloController implements Sayhello {
 
     @GetMapping("/sayHello")
     @Override

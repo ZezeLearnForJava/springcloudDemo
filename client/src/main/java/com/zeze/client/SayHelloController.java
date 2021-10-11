@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class SayHelloController {
 
 
-
     private final Sayhello sayHello;
 
     @Autowired
@@ -28,7 +27,7 @@ public class SayHelloController {
 
 
     @RequestMapping("sayHello")
-    public String testSayHello(){
+    public String testSayHello() {
         String s = sayHello.sayHello();
         return s;
     }

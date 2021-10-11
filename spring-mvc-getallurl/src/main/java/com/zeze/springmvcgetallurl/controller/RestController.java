@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 public class RestController {
 
 
-
     @GetMapping("/test01")
     @Tracer(OperationName = "获取角色")
     public String getAllUrl() {
@@ -25,5 +24,10 @@ public class RestController {
     @Tracer(OperationName = "路径参数")
     public String pathTest(@PathVariable("index") String index) {
         return "index";
+    }
+
+    @GetMapping("/testfile")
+    public String pathttt() {
+        return "test";
     }
 }

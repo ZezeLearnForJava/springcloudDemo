@@ -11,8 +11,10 @@ import org.springframework.web.servlet.mvc.condition.RequestMethodsRequestCondit
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.regex.Pattern;
@@ -36,6 +38,8 @@ public class TracerUrlMapping {
     @Autowired
     private WebApplicationContext applicationContext;
 
+    @Autowired
+    private FileToMap fileToMap;
 
     /**
      * get the mapping between url and chinese char
@@ -67,14 +71,19 @@ public class TracerUrlMapping {
             }
             urlMap.put(key, value);
         }
+
+
+        HashMap<String, String> stringStringHashMap = fileToMap.getFileMapping();
+        urlMap.putAll(stringStringHashMap);
         return urlMap;
     }
 
     /**
      * 路径参数正则匹配
      * eg： api/{userid}/info     api/./info      api/1/info
-     *      api/user/{info}       api/user/.\\w*  api/user/test
-     *      api/{userid}          api/.\\w*       opi/test
+     * api/user/{info}       api/user/.\\w*  api/user/test
+     * api/{userid}          api/.\\w*       opi/test
+     *
      * @return
      */
     public HashMap<String, String> getUrlPathValueMapping() {
@@ -90,8 +99,8 @@ public class TracerUrlMapping {
                 int left = key.indexOf("{");
                 int right = key.indexOf("}");
                 String leftStr = key.substring(0, left);
-                String rightStr = key.substring(right+1);
-                String newKey= leftStr + "." + rightStr;
+                String rightStr = key.substring(right + 1);
+                String newKey = leftStr + "." + rightStr;
                 if ("".equals(rightStr)) {
                     newKey = newKey + "\\w*";
                 }
@@ -107,6 +116,7 @@ public class TracerUrlMapping {
 
     /**
      * 获取路径参数映射的中文字符
+     *
      * @param toBeMatched toBeMatched
      * @return 对应的中文字符
      */
@@ -128,6 +138,7 @@ public class TracerUrlMapping {
 
     /**
      * 获取非路径参数映射的中文字符
+     *
      * @param url url
      * @return 对应的中文字符
      */
@@ -139,6 +150,7 @@ public class TracerUrlMapping {
     }
 
     public String getChineseMapping(String url) {
+        final HashMap<String, String> fileMapping = fileToMap.getFileMapping();
         String chineseFormUrlMapping = getChineseFormUrlMapping(url);
         if (chineseFormUrlMapping != null) {
             return chineseFormUrlMapping;
@@ -150,5 +162,7 @@ public class TracerUrlMapping {
 
         return url;
     }
+
+
 
 }
