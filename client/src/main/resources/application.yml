@@ -6,6 +6,12 @@ eureka:
       defaultZone: http://${EUREKA_HOST:localhost}:${EUREKA_PORT:8761}/eureka/
   instance:
     prefer-ip-address: true
+    metadata-map:
+      # 是否允许prometheus 刮擦，不影响接口
+      prometheus.scrape: true
+      prometheus.path: /actuator/prometheus
+      prometheus.port: 11080
+      service: client
 spring:
   application:
     name: client
@@ -15,3 +21,9 @@ hystrix:
       execution:
         isolation:
           strategy: SEMAPHORE
+# 配置开启Actuator服务
+management:
+  endpoints:
+    web:
+      exposure:
+        include: 'prometheus'

@@ -17,3 +17,18 @@ eureka:
     fetch-registry: false        # 是否从注册中心获取服务注册信息 默认值是 true
     service-url:
       defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka
+    lease-renewal-interval-in-seconds: 15
+   # metadataMap.prometheus.port: 8761
+
+management:
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: ['prometheus']
+  endpoint:
+    prometheus:
+      enabled: true
+  server:
+    port: 8761
+
